@@ -1,0 +1,75 @@
+<body class="off-canvas-sidebar">
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- Navbar -->
+    <app-navbar-l></app-navbar-l>
+
+    <div class="wrapper wrapper-full-page">
+        <div class="page-header pricing-page header-filter"
+            style="background-image: url('../../assets/img/escuela1.jpg')">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+
+                        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+                            <div class="card card-login card-hidden">
+                                <div class="card-header card-header-rose text-center">
+                                    <h4 class="card-title">Iniciar Sesi&oacute;n</h4>
+                                    <div class="social-line">
+                                        <a class="btn btn-just-icon btn-link btn-white">
+                                            <i class="material-icons">accessibility</i></a>
+                                    </div>
+                                </div>
+                                <div class="card-body ">
+                                    <p class="card-description text-center">Ingresar a Papeleria Sam</p>
+                                    <span class="bmd-form-group">
+                                    </span>
+
+                                    <span class="bmd-form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="material-icons">email</i>
+                                                </span>
+                                            </div>
+                                            <input type="email" class="form-control" formControlName="correo"
+                                                placeholder="Correo...">
+                                        </div>
+                                    </span>
+
+
+                                    <span class="bmd-form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="material-icons">lock_outline</i>
+                                                </span>
+                                            </div>
+                                            <input type="password" class="form-control" formControlName="clave"
+                                                placeholder="Clave...">
+                                        </div>
+                                    </span>
+                                </div>
+                                <div class="card-footer justify-content-center">
+                                    <button type="submit" class="btn btn-rose btn-link btn-lg">Iniciar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+
+            <div class="copyright float-right">
+                ©
+                <script>
+                    document.write(new Date().getFullYear())
+                </script>2020, <i class="material-icons">favorite</i> by
+                <a href="" target="_blank">Samantha Rocha.</a>
+            </div>
+        </div>
+    </footer>
+</body>

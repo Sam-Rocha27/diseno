@@ -1,0 +1,124 @@
+<div class="card">
+    <div class="card-header card-header-primary">
+        <h4 class="card-title">Listado de Ventas</h4>
+        Agregar una nueva Venta. <a (click)="ngModalMostrar(0, null)"><i
+                class="material-icons text-white">add_circle_outline</i></a>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let item of ventas">
+        <div class="card card-stats">
+            <div class="card-header card-header-success card-header-icon">
+                <div class="card-icon">
+                    <i class="material-icons">add_shopping_cart</i>
+                </div>
+                <p class="card-category">Articulo: {{item.Articulo}}</p>
+                <h4 class="card-title">Cliente: {{item.Cliente}}
+                </h4>
+                <h4>
+                    <small style="color: rgba(0, 0, 0, 0.561);">Venta ID: {{item.IdVenta}}</small>
+                </h4>
+
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <a (click)="ngModalMostrar(1, item)"> <i class="material-icons text-info">visibility</i></a>
+                    <a (click)="ngModalMostrar(2, item)"> <i class="material-icons text-warning">edit</i></a>
+                    <a (click)="ngModalMostrar(3, item)"> <i class="material-icons text-danger">delete_forever</i></a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div class="sombra" [style.display]="mostrar"></div>
+<div [style.display]="mostrar" class="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ventas</h5>
+                <button type="button" class="close" (click)="ngModalOcultar()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div *ngIf="opcion == 0" class="modal-body">
+                <form [formGroup]="veForm" class="form">
+
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="exampleFormControlSelect1">Articulo</label>
+                            <select class="form-control " formControlName="Articulo" id="exampleFormControlSelect1">
+                                <option value="0">Colores</option>
+                                <option value="1">Plumones</option>
+                                <option value="2">Carpetas</option>
+                                <option value="3">Lapiceras</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="Cliente"> Cliente Nombre</label>
+                            <input formControlName="Cliente" type="text" class="form-control">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div *ngIf="opcion == 1" class="modal-body">
+
+                <blockquote class="blockquote">
+                    <p class="mb-0">{{seleccionado.Articulo}}</p>
+                    <footer class="blockquote-footer">Articulo Vendido</footer>
+                </blockquote>
+                <blockquote class="blockquote">
+                    <p class="mb-0">{{seleccionado.Cliente}}</p>
+                    <footer class="blockquote-footer">Cliente</footer>
+                </blockquote>
+
+            </div>
+
+            <div *ngIf="opcion == 2" class="modal-body">
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="Articulo">Articulo</label>
+                        <input [(ngModel)]="seleccionado.Articulo" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="Cliente">Cliente</label>
+                        <input [(ngModel)]="seleccionado.Cliente" type="text" class="form-control">
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div *ngIf="opcion == 3" class="modal-body">
+                <blockquote class="blockquote">
+                    <p class="mb-0">{{seleccionado.IdVenta}}</p>
+                    <footer class="blockquote-footer">Venta ID</footer>
+                </blockquote>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="ngModalOcultar()">Salir</button>
+                <button *ngIf="opcion == 0" (click)="ngCrearVenta()" type="button"
+                    class="btn btn-primary">Agregar</button>
+                <button *ngIf="opcion == 2" (click)="ngModificarVenta()" type="button"
+                    class="btn btn-primary">Actualizar</button>
+                <button *ngIf="opcion == 3" (click)="ngEliminarVenta()" type="button"
+                    class="btn btn-danger">Eliminar</button>
+
+            </div>
+        </div>
+    </div>
+</div>

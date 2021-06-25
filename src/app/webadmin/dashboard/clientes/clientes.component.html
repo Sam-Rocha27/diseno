@@ -1,0 +1,132 @@
+<div class="card">
+    <div class="card-header card-header-primary">
+        <h4 class="card-title">Listado de Clientes</h4>
+        Agregar un nuevo Cliente. <a (click)="ngModalMostrar(0, null)"><i
+                class="material-icons text-white">add_circle_outline</i></a>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let item of clientes">
+        <div class="card card-stats">
+            <div class="card-header card-header-rose card-header-icon">
+                <div class="card-icon">
+                    <i class="material-icons">contacts</i>
+                </div>
+                <p class="card-category">Telefono: {{item.Telefono}}</p>
+                <h4 class="card-title">Nombres: {{item.Nombres}}
+                </h4>
+                <h4>
+                    <small style="color: rgba(0, 0, 0, 0.561);">Apellidos: {{item.Apellidos}}</small>
+                </h4>
+
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <a (click)="ngModalMostrar(1, item)"> <i class="material-icons text-info">visibility</i></a>
+                    <a (click)="ngModalMostrar(2, item)"> <i class="material-icons text-warning">edit</i></a>
+                    <a (click)="ngModalMostrar(3, item)"> <i class="material-icons text-danger">delete_forever</i></a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div class="sombra" [style.display]="mostrar"></div>
+<div [style.display]="mostrar" class="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Clientes</h5>
+                <button type="button" class="close" (click)="ngModalOcultar()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div *ngIf="opcion == 0" class="modal-body">
+                <form [formGroup]="cliForm" class="form">
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="Nombres">Nombres</label>
+                            <input formControlName="Nombres" type="text" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="Apellidos">Apellidos</label>
+                            <input formControlName="Apellidos" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="Telefono">Telefono</label>
+                            <input formControlName="Telefono" type="text" class="form-control" >
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+            <div *ngIf="opcion == 1" class="modal-body">
+                <blockquote class="blockquote">
+                    <p class="mb-0">{{seleccionado.Nombres}}</p>
+                    <footer class="blockquote-footer">Nombres del Cliente</footer>
+                </blockquote>
+                <blockquote class="blockquote">
+                    <p class="mb-0">{{seleccionado.Apellidos}}</p>
+                    <footer class="blockquote-footer">Apellidos del cliente</footer>
+                </blockquote>
+                <blockquote class="blockquote">
+                    <p class="mb-0">{{seleccionado.Telefono}}</p>
+                    <footer class="blockquote-footer">Telefono del cliente</footer>
+                </blockquote>
+
+            </div>
+
+            <div *ngIf="opcion == 2" class="modal-body">
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="Nombres">Nombres</label>
+                        <input [(ngModel)]="seleccionado.Nombres" type="text" class="form-control" >
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="Apellidos">Apellidos</label>
+                        <input [(ngModel)]="seleccionado.Apellidos" type="text" class="form-control"
+                           >
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="Telefono">Telefono</label>
+                        <input [(ngModel)]="seleccionado.Telefono" type="text" class="form-control" >
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div *ngIf="opcion == 3" class="modal-body">
+                <blockquote class="blockquote">
+                    <p class="mb-0">{{seleccionado.Nombres}}</p>
+                    <footer class="blockquote-footer">Nombre Cliente</footer>
+                </blockquote>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="ngModalOcultar()">Salir</button>
+                <button *ngIf="opcion == 0" (click)="ngCrearCliente()" type="button"
+                    class="btn btn-primary">Agregar</button>
+                <button *ngIf="opcion == 2" (click)="ngModificarCliente()" type="button"
+                    class="btn btn-primary">Actualizar</button>
+                <button *ngIf="opcion == 3" (click)="ngEliminarCliente()" type="button"
+                    class="btn btn-danger">Eliminar</button>
+
+            </div>
+        </div>
+    </div>
+</div>

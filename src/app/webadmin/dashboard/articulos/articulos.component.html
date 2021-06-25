@@ -1,0 +1,141 @@
+<div class="card">
+    <div class="card-header card-header-primary">
+        <h4 class="card-title">Listado de Articulos</h4>
+        Agregar un nuevo Articulo. <a (click)="ngModalMostrar(0, null)"><i
+                class="material-icons text-white">add_circle_outline</i></a>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let item of articulos">
+        <div class="card card-stats">
+            <div class="card-header card-header-info card-header-icon">
+                <div class="card-icon">
+                    <i class="material-icons">dns</i>
+                </div>
+                <p class="card-category">Tipo: {{item.Tipo}}</p>
+                <h4 class="card-title">Nombre: {{item.Nombre}}
+
+                </h4>
+                <h4>
+                    <small style="color: rgba(0, 0, 0, 0.561);">Precio: {{item.Precio}}</small>
+                </h4>
+
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <a (click)="ngModalMostrar(1, item)"> <i class="material-icons text-info">visibility</i></a>
+                    <a (click)="ngModalMostrar(2, item)"> <i class="material-icons text-warning">edit</i></a>
+                    <a (click)="ngModalMostrar(3, item)"> <i class="material-icons text-danger">delete_forever</i></a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div class="sombra" [style.display]="mostrar"></div>
+<div [style.display]="mostrar" class="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Articulos</h5>
+                <button type="button" class="close" (click)="ngModalOcultar()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div *ngIf="opcion == 0" class="modal-body">
+                <form [formGroup]="arForm" class="form">
+                    <div class="form-row">
+                        <div class="form-group col-md-8">
+                            <label for="Nombre">Nombre</label>
+                            <input formControlName="Nombre" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="precio">Precio</label>
+                            <input formControlName="Precio" type="number" class="form-control" placeholder="$">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="exampleFormControlSelect1">Tipo</label>
+                            <select class="form-control " formControlName="Tipo" id="exampleFormControlSelect1">
+                                <option value="0">Colores</option>
+                                <option value="1">Plumones</option>
+                                <option value="2">Carpetas</option>
+                                <option value="3">Lapiceras</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div *ngIf="opcion == 1" class="modal-body">
+                <blockquote class="blockquote">
+                    <p class="mb-0">{{seleccionado.Nombre}}</p>
+                    <footer class="blockquote-footer">Nombre Articulo</footer>
+                </blockquote>
+                <blockquote class="blockquote">
+                    <p class="mb-0">{{seleccionado.Tipo}}</p>
+                    <footer class="blockquote-footer">Tipo de articulo</footer>
+                </blockquote>
+                <blockquote class="blockquote">
+                    <p class="mb-0">{{seleccionado.Precio}}</p>
+                    <footer class="blockquote-footer">Precio articulo</footer>
+                </blockquote>
+            </div>
+
+            <div *ngIf="opcion == 2" class="modal-body">
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="Nombre">Nombre</label>
+                        <input [(ngModel)]="seleccionado.Nombre" type="text" class="form-control" placeholder="Lapiz">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="Precio">Precio</label>
+                        <input [(ngModel)]="seleccionado.Precio" type="text" class="form-control" placeholder="12, 55">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="exampleFormControlSelect1">Tipo</label>
+                        <select class="form-control " [(ngModel)]="seleccionado.Tipo" id="exampleFormControlSelect1">
+                            <option value="0">Colores</option>
+                            <option value="1">Plumones</option>
+                            <option value="2">Carpetas</option>
+                            <option value="3">Lapiceras</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div *ngIf="opcion == 3" class="modal-body">
+                <blockquote class="blockquote">
+                    <p class="mb-0">{{seleccionado.Nombre}}</p>
+                    <footer class="blockquote-footer">Nombre Articulo</footer>
+                </blockquote>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="ngModalOcultar()">Salir</button>
+                <button *ngIf="opcion == 0" (click)="ngCrearArticulo()" type="button"
+                    class="btn btn-primary">Agregar</button>
+                <button *ngIf="opcion == 2" (click)="ngModificarArticulo()" type="button"
+                    class="btn btn-primary">Actualizar</button>
+                <button *ngIf="opcion == 3" (click)="ngEliminarArticulo()" type="button"
+                    class="btn btn-danger">Eliminar</button>
+
+            </div>
+        </div>
+    </div>
+</div>

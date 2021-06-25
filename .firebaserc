@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "bdd-gdv-50fb5": {
+      "hosting": {
+        "GdVCitas-fe": [
+          "bdd-gdv-50fb5"
+        ]
+      }
+    }
+  }
+}

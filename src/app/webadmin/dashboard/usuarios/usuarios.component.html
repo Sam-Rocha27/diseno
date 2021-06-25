@@ -1,0 +1,179 @@
+<div class="card">
+  <div class="card-header card-header-primary">
+    <h4 class="card-title">Listado de Usuarios</h4>
+    Agregar un nuevo Usuario. <a (click)="ngModalMostrar(0, null)"><i
+        class="material-icons text-white">add_circle_outline</i></a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-4" *ngFor="let item of usuarios">
+    <div class="card card-stats">
+      <div class="card-header card-header-rose card-header-icon">
+        <div class="card-icon">
+          <i class="material-icons">group_add </i>
+        </div>
+        <p class="card-category">{{item.telefono}}</p>
+        <h4 class="card-title">{{item.nombres}}
+        </h4>
+        <h4>
+          <small style="color: black;">{{item.apellidos}}</small>
+        </h4>
+      </div>
+      <div class="card-footer">
+        <div class="stats">
+          <a (click)="ngModalMostrar(1, item)"> <i class="material-icons text-info">visibility</i></a>
+          <a (click)="ngModalMostrar(2, item)"> <i class="material-icons text-warning">edit</i></a>
+          <a (click)="ngModalMostrar(3, item)"> <i class="material-icons text-danger">delete_forever</i></a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="sombra" [style.display]="mostrar"></div>
+<div [style.display]="mostrar" class="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" (click)="ngModalOcultar()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+
+      <div *ngIf="opcion == 0" class="modal-body">
+        <form [formGroup]="usForm" class="form">
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <label for="tipoUsuario">Tipo de Usuario</label>
+              <input formControlName="tipoUsuario" type="number" class="form-control" placeholder="0, 1, 2">
+            </div>
+            <div class="form-group col-md-9">
+              <label for="nombres">Nombres</label>
+              <input formControlName="nombres" type="text" class="form-control" placeholder="Samantha Itzel">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-9">
+              <label for="apellidos">Apellidos</label>
+              <input formControlName="apellidos" type="text" class="form-control" placeholder="Rocha Rodriguez">
+            </div>
+            <div class="form-group col-md-3">
+              <label for="status">Status</label>
+              <input formControlName="status" type="number" class="form-control" placeholder="0-1">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="direccion">Direccion</label>
+              <input formControlName="direccion" type="text" class="form-control" placeholder="L.P. Verdia">
+            </div>
+
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="telefono">Telefono</label>
+              <input formControlName="telefono" type="number" class="form-control" placeholder="3411173154">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="noSeguro">Numero de seguro</label>
+              <input formControlName="noSeguro" type="text" class="form-control" placeholder="157642133">
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div *ngIf="opcion == 1" class="modal-body">
+
+          <blockquote class="blockquote">
+            <p class="mb-0">{{seleccionado.tipoUsuario}}</p>
+            <footer class="blockquote-footer">Tipo Usuario</footer>
+          </blockquote>
+          <blockquote class="blockquote">
+            <p class="mb-0">{{seleccionado.nombres}}</p>
+            <footer class="blockquote-footer">Nombres Usuario</footer>
+          </blockquote>
+          <blockquote class="blockquote">
+            <p class="mb-0">{{seleccionado.apellidos}}</p>
+            <footer class="blockquote-footer">Apellidos Usuario</footer>
+          </blockquote>
+          <blockquote class="blockquote">
+            <p class="mb-0">{{seleccionado.status}}</p>
+            <footer class="blockquote-footer">Status Usuario</footer>
+          </blockquote>
+          <blockquote class="blockquote">
+            <p class="mb-0">{{seleccionado.direccion}}</p>
+            <footer class="blockquote-footer">Direccion Usuario</footer>
+          </blockquote>
+          <blockquote class="blockquote">
+            <p class="mb-0">{{seleccionado.telefono}}</p>
+            <footer class="blockquote-footer">Telefono Usuario</footer>
+          </blockquote>
+          <blockquote class="blockquote">
+            <p class="mb-0">{{seleccionado.noSeguro}}</p>
+            <footer class="blockquote-footer">Numero de seguro Usuario</footer>
+          </blockquote>
+
+      </div>
+
+      <div *ngIf="opcion == 2" class="modal-body">
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="tipoUsuario">Tipo de Usuario</label>
+            <input [(ngModel)]="seleccionado.tipoUsuario" type="number" class="form-control" placeholder="0, 1, 2">
+          </div>
+          <div class="form-group col-md-9">
+            <label for="nombres">Nombres</label>
+            <input [(ngModel)]="seleccionado.nombres" type="text" class="form-control" placeholder="Samantha Itzel">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-9">
+            <label for="apellidos">Apellidos</label>
+            <input [(ngModel)]="seleccionado.apellidos" type="text" class="form-control" placeholder="Rocha Rodriguez">
+          </div>
+          <div class="form-group col-md-3">
+            <label for="status">Status</label>
+            <input [(ngModel)]="seleccionado.status" type="number" class="form-control" placeholder="0-1">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="direccion">Direccion</label>
+            <input [(ngModel)]="seleccionado.direccion" type="text" class="form-control" placeholder="L.P. Verdia">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="telefono">Telefono</label>
+            <input [(ngModel)]="seleccionado.telefono" type="number" class="form-control" placeholder="3411173154">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="noSeguro">Numero de seguro</label>
+            <input [(ngModel)]="seleccionado.noSeguro" type="text" class="form-control" placeholder="157642133">
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="opcion == 3" class="modal-body">
+        <blockquote class="blockquote">
+          <p class="mb-0">{{seleccionado.nombres}}</p>
+          <footer class="blockquote-footer">Nombres Usuario</footer>
+        </blockquote>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="ngModalOcultar()">Salir</button>
+        <button *ngIf="opcion == 0" (click)="ngCrearUsuario()" type="button" class="btn btn-primary">Agregar</button>
+        <button *ngIf="opcion == 2" (click)="ngModificarUsuario()" type="button" class="btn btn-primary">Actualizar</button>
+        <button *ngIf="opcion == 3" (click)="ngEliminarUsuario()" type="button" class="btn btn-danger">Eliminar</button>
+
+      </div>
+    </div>
+  </div>
+</div>

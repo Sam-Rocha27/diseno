@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "GdVCitas-fe",
+      "public": "dist/GdVCitas-fe",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}

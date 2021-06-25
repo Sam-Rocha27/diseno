@@ -1,0 +1,125 @@
+<div class="card">
+  <div class="card-header card-header-primary">
+    <h4 class="card-title">Listado de Citas</h4>
+    Agregar una nueva cita. <a (click)="ngModalMostrar(0, null)"><i
+        class="material-icons text-white">add_circle_outline</i></a>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let item of citas">
+    <div class="card card-stats">
+      <div class="card-header card-header-info card-header-icon">
+        <div class="card-icon">
+          <i class="material-icons">content_copy</i>
+        </div>
+        <p class="card-category">{{item.fechaYhora}}</p>
+        <h4 class="card-title">{{item.resumen}}
+
+        </h4>
+        <h4>
+          <small style="color: rgba(0, 0, 0, 0.561);">{{item.siguienteCita}}</small>
+        </h4>
+      </div>
+      <div class="card-footer">
+        <div class="stats">
+          <a (click)="ngModalMostrar(1, item)"> <i class="material-icons text-info">visibility</i></a>
+          <a (click)="ngModalMostrar(2, item)"> <i class="material-icons text-warning">edit</i></a>
+          <a (click)="ngModalMostrar(3, item)"> <i class="material-icons text-danger">delete_forever</i></a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal -->
+<div class="sombra" [style.display]="mostrar"></div>
+<div [style.display]="mostrar" class="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" (click)="ngModalOcultar()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="opcion == 0" class="modal-body">
+        <form [formGroup]="ciForm" class="form">
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="resumen">Resumen</label>
+              <input formControlName="resumen" type="text" class="form-control" placeholder="avances perfectos">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="fechaYhora">Fecha Y Hora</label>
+              <input formControlName="fechaYhora" type="datetime" class="form-control">
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="siguenteCita">Siguente Cita</label>
+              <input formControlName="siguienteCita" type="date" class="form-control">
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div *ngIf="opcion == 1" class="modal-body">
+        <blockquote class="blockquote">
+          <p class="mb-0">{{seleccionado.resumen}}</p>
+          <footer class="blockquote-footer">Resumen Cita</footer>
+        </blockquote>
+        <blockquote class="blockquote">
+          <p class="mb-0">{{seleccionado.fechaYhora}}</p>
+          <footer class="blockquote-footer">Fecha y Hora</footer>
+        </blockquote>
+        <blockquote class="blockquote">
+          <p class="mb-0">{{seleccionado.siguienteCita}}</p>
+          <footer class="blockquote-footer">siguente Cita</footer>
+        </blockquote>
+      </div>
+
+      <div *ngIf="opcion == 2" class="modal-body">
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="resumen">Resumen</label>
+            <input [(ngModel)]="seleccionado.resumen" type="text" class="form-control" placeholder="sam@gmail.com">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="fechaYhora">Fecha Y Hora</label>
+            <input [(ngModel)]="seleccionado.fechaYhora" type="text" class="form-control" placeholder="sam@gmail.com">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="siguienteCita">Siguiente Cita</label>
+            <input [(ngModel)]="seleccionado.siguienteCita" type="text" class="form-control" placeholder="sam@gmail.com">
+          </div>
+        </div>
+      </div>
+
+
+        <div *ngIf="opcion == 3" class="modal-body">
+          <blockquote class="blockquote">
+            <p class="mb-0">{{seleccionado.resumen}}</p>
+            <footer class="blockquote-footer">Resumen Cita</footer>
+          </blockquote>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="ngModalOcultar()">Salir</button>
+          <button *ngIf="opcion == 0" (click)="ngCrearCita()" type="button" class="btn btn-primary">Agregar</button>
+          <button *ngIf="opcion == 2" (click)="ngModificarCita()" type="button" class="btn btn-primary">Actualizar</button>
+          <button *ngIf="opcion == 3" (click)="ngEliminarCita()" type="button" class="btn btn-danger">Eliminar</button>
+
+        </div>
+      </div>
+    </div>
+  </div>

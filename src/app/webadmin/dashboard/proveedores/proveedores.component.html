@@ -1,0 +1,173 @@
+<div class="card">
+    <div class="card-header card-header-primary">
+        <h4 class="card-title">Listado de Proveedores</h4>
+        Agregar un nuevo Proveedor. <a (click)="ngModalMostrar(0, null)"><i
+                class="material-icons text-white">add_circle_outline</i></a>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let item of proveedores">
+        <div class="card card-stats">
+            <div class="card-header card-header-warning card-header-icon">
+                <div class="card-icon">
+                    <i class="material-icons">supervised_user_circle</i>
+                </div>
+                <p class="card-category">ContactoNum: {{item.NumContacto}}</p>
+                <h4 class="card-title">Nombre: {{item.Nombre}}
+                </h4>
+                <h4>
+                    <small style="color: rgba(0, 0, 0, 0.561);">Fabrica: {{item.Fabrica}}</small>
+                </h4>
+                <h4>
+                    <small style="color: rgba(0, 0, 0, 0.561);">Productos: {{item.Productos}}</small>
+                </h4>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <a (click)="ngModalMostrar(1, item)"> <i class="material-icons text-info">visibility</i></a>
+                    <a (click)="ngModalMostrar(2, item)"> <i class="material-icons text-warning">edit</i></a>
+                    <a (click)="ngModalMostrar(3, item)"> <i class="material-icons text-danger">delete_forever</i></a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div class="sombra" [style.display]="mostrar"></div>
+<div [style.display]="mostrar" class="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Proveedores</h5>
+                <button type="button" class="close" (click)="ngModalOcultar()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div *ngIf="opcion == 0" class="modal-body">
+                <form [formGroup]="poForm" class="form">
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="Nombre">Nombre</label>
+                            <input formControlName="Nombre" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="exampleFormControlSelect1">Fabrica</label>
+                            <select class="form-control " formControlName="Fabrica" id="exampleFormControlSelect1">
+                                <option value="0">Norma</option>
+                                <option value="1">Crayola</option>
+                                <option value="2">Bic</option>
+                                <option value="3">PaperMate</option>
+                            </select>
+                        </div>
+                    </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="NumContacto">Numero de Contacto</label>
+                                <input formControlName="NumContacto" type="text" class="form-control">
+                            </div>
+                        </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="exampleFormControlSelect1">Productos</label>
+                            <select class="form-control " formControlName="Productos" id="exampleFormControlSelect1">
+                                <option value="0">Colores</option>
+                                <option value="1">Plumones</option>
+                                <option value="2">Carpetas</option>
+                                <option value="3">Lapiceras</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+
+            <div *ngIf="opcion == 1" class="modal-body">
+                <blockquote class="blockquote">
+                    <p class="mb-0">{{seleccionado.Nombre}}</p>
+                    <footer class="blockquote-footer">Nombre del Proveeedor</footer>
+                </blockquote>
+                <blockquote class="blockquote">
+                    <p class="mb-0">{{seleccionado.Fabrica}}</p>
+                    <footer class="blockquote-footer">Fabrica del Proveedor</footer>
+                </blockquote>
+                <blockquote class="blockquote">
+                    <p class="mb-0">{{seleccionado.NumContacto}}</p>
+                    <footer class="blockquote-footer">Numero de Contacto del Proveedor</footer>
+                </blockquote>
+                <blockquote class="blockquote">
+                    <p class="mb-0">{{seleccionado.Productos}}</p>
+                    <footer class="blockquote-footer">Productos</footer>
+                </blockquote>
+            </div>
+
+            <div *ngIf="opcion == 2" class="modal-body">
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="Nombre">Nombre</label>
+                        <input [(ngModel)]="seleccionado.Nombre" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="exampleFormControlSelect1">Fabrica</label>
+                        <select class="form-control " [(ngModel)]="seleccionado.Fabrica"
+                            id="exampleFormControlSelect1">
+                            <option value="0">Norma</option>
+                            <option value="1">Crayola</option>
+                            <option value="2">Bic</option>
+                            <option value="3">PaperMate</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="NumContacto">NumContacto</label>
+                        <input [(ngModel)]="seleccionado.NumContacto" type="text" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="exampleFormControlSelect1">Productos</label>
+                        <select class="form-control " [(ngModel)]="seleccionado.Productos"
+                            id="exampleFormControlSelect1">
+                            <option value="0">Colores</option>
+                            <option value="1">Plumones</option>
+                            <option value="2">Carpetas</option>
+                            <option value="3">Lapiceras</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <div *ngIf="opcion == 3" class="modal-body">
+                <blockquote class="blockquote">
+                    <p class="mb-0">{{seleccionado.Nombre}}</p>
+                    <footer class="blockquote-footer">Nombre Proveedor</footer>
+                </blockquote>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="ngModalOcultar()">Salir</button>
+                <button *ngIf="opcion == 0" (click)="ngCrearProveedor()" type="button"
+                    class="btn btn-primary">Agregar</button>
+                <button *ngIf="opcion == 2" (click)="ngModificarProveedor()" type="button"
+                    class="btn btn-primary">Actualizar</button>
+                <button *ngIf="opcion == 3" (click)="ngEliminarProveedor()" type="button"
+                    class="btn btn-danger">Eliminar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
